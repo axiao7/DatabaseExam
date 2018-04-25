@@ -14,4 +14,8 @@ class AdminController extends Controller {
         return view('admin.student');
     }
 
+    public function login () {
+        return view('common.login');
+    }
+
 }
