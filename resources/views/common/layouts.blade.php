@@ -24,11 +24,13 @@
         </div>
     </nav>
 
-    <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
-        <li role="presentation" class="active"><a href="#">Home</a></li>
-        <li role="presentation"><a href="#">Profile</a></li>
-        <li role="presentation"><a href="#">Messages</a></li>
-    </ul>
+    <div class="bs-example" data-example-id="simple-nav-stacked">
+        <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+            <li role="presentation" class="active"><a href="#">Home</a></li>
+            <li role="presentation"><a href="#">Profile</a></li>
+            <li role="presentation"><a href="#">Messages</a></li>
+        </ul>
+    </div>
     @yield('content')
 
     <script src="{{ asset('static/jquery/jquery.min.js') }}"></script>
