@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller {
 
@@ -49,7 +50,8 @@ class AdminController extends Controller {
             $data = $req->input('Admin');
             $adminer = Admin::where('admin_id', '=', '1000000000')->first();
             if ($adminer['attributes']['admin_id'] == $data['admin_id'] && $adminer['attributes']['password'] == $data['password']) {
-                return redirect('admin')->with('admin', 'logining');
+                Session::put('admin', 'success');
+                return redirect('admin');
             } else {
                 return redirect()->back()->with('error', '用户名或者密码错误!');
             }
