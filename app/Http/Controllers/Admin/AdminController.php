@@ -66,4 +66,8 @@ class AdminController extends Controller {
         return view('common.login');
     }
 
+    public function excelImport () {
+
+    }
+
 }
