@@ -15,12 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['web', 'check.login']], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['check.login']], function () {
 
     Route::get('/', ['uses' => 'AdminController@index']);
 
     Route::get('studentinfo', ['uses' => 'AdminController@student']);
 
-    Route::get('login', ['uses' => 'AdminController@login']);
+    Route::any('login', ['uses' => 'AdminController@login']);
+
+//    Route::post('login', ['uses' => 'AdminController@login']);
 
 });

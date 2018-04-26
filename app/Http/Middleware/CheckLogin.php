@@ -15,7 +15,7 @@ class CheckLogin
      */
     public function handle($request, Closure $next)
     {
-        if (!session('user') &&  !$request->is('admin/login')) {
+        if (!session('admin') &&  !$request->is('admin/login')) {
             return redirect('admin/login');
         }
         return $next($request);
