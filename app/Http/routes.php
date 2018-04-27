@@ -21,7 +21,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['che
 
     Route::get('studentinfo', ['uses' => 'AdminController@student']);
 
+    Route::get('teacherinfo', ['uses' => 'AdminController@teacher']);
+
     Route::any('login', ['uses' => 'AdminController@login']);
+
+    Route::any('upload/{id}', ['uses' => 'AdminController@excelImport']);
+
+    Route::get('excel/export','AdminController@export');
 
 //    Route::post('login', ['uses' => 'AdminController@login']);
 

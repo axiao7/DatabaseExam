@@ -9,8 +9,8 @@
                 @section('leftmenu')
                     <div class="list-group">
                         <a href="{{ url('admin/') }}" class="list-group-item">试卷管理</a>
-                        <a href="{{ url('admin/studentinfo') }}" class="list-group-item active">学生信息导入</a>
-                        <a href="{{ url('admin/teacherinfo') }}" class="list-group-item">教师信息导入</a>
+                        <a href="{{ url('admin/studentinfo') }}" class="list-group-item">学生信息导入</a>
+                        <a href="{{ url('admin/teacherinfo') }}" class="list-group-item active">教师信息导入</a>
                     </div>
                 @show
             </div>
@@ -22,7 +22,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">文件上传</div>
                             <div class="panel-body">
-                                <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/upload', ['id' => 'student']) }}" enctype="multipart/form-data">
+                                <form class="form-horizontal" role="form" method="POST" action="" enctype="multipart/form-data">
                                     {{ csrf_field() }}
 
 
