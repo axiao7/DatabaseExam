@@ -8,4 +8,6 @@ class Teacher extends Model
 {
     //
     public $timestamps = false;
+
+    protected $fillable = ['teacher_id', 'password'];
 }

@@ -87,10 +87,10 @@ class AdminController extends Controller {
                 $filename = date('Y-m-d-H-m-s').'-'.uniqid().'.'.$ext;
 //                $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
                 Excel::load($realPath, function($reader) {
-                    dd($reader->all());
+                    var_dump($reader->all());
                 });
-                var_dump($id);
-                var_dump($file);
+//                var_dump($id);
+//                var_dump($file);
 
             }
             exit;
