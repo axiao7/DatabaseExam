@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Student;
 use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -79,22 +80,16 @@ class AdminController extends Controller {
             // dd($file);
             //文件是否上传成功
             if($file->isValid()){
-
                 //文件信息
-                $originalname = $file->getClientOriginalName();
                 $ext = $file->getClientOriginalExtension();
-                $type = $file->getClientMimeType();
                 $realPath = $file->getRealPath();
-                $filename = date('Y-m-d-H-m-s').'-'.uniqid().'.'.$ext;
-//                $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
                 Excel::load($realPath, function($reader) {
                     $reader->each(function ($rows) {
+                        $student = new Student();
+                        $student->student_id = $rows[0];
+                        $student->password = $rows[1];
 
-                        $teacher = Teacher::create([
-                            'teacher_id' => $rows[0],
-                            'password' => $rows[1]
-                        ]);
-                        if (!$teacher) {
+                        if (!$student->save()) {
                             return redirect()->back()->with('error', '添加失败!');
                         }
 
@@ -107,6 +102,7 @@ class AdminController extends Controller {
             }
             exit;
         }
+
 //        return view('student.upload');
     }
 

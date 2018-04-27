@@ -32,7 +32,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">文件上传</div>
                             <div class="panel-body">
-                                <form class="form-horizontal" role="form" method="POST" action="" enctype="multipart/form-data">
+                                <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/upload', ['id' => 'teacher']) }}" enctype="multipart/form-data">
                                     {{ csrf_field() }}
 
 
