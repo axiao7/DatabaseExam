@@ -17,6 +17,16 @@
 
             <!-- 右侧内容区域 -->
             <div class="col-md-9">
+                @if (Session::get('error'))
+                    <span class="help-block">
+                                        <strong>{{ Session::get('error') }}</strong>
+                                    </span>
+                @endif
+                @if (Session::get('success'))
+                    <span class="help-block">
+                                    <strong>{{ Session::get('success') }}</strong>
+                                </span>
+                @endif
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div class="panel panel-default">

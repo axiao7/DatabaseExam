@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
@@ -87,8 +88,19 @@ class AdminController extends Controller {
                 $filename = date('Y-m-d-H-m-s').'-'.uniqid().'.'.$ext;
 //                $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
                 Excel::load($realPath, function($reader) {
-                    var_dump($reader->all());
+                    $reader->each(function ($rows) {
+
+                        $teacher = Teacher::create([
+                            'teacher_id' => $rows[0],
+                            'password' => $rows[1]
+                        ]);
+                        if (!$teacher) {
+                            return redirect()->back()->with('error', '添加失败!');
+                        }
+
+                    });
                 });
+                return redirect()->back()->with('success', '添加成功!');
 //                var_dump($id);
 //                var_dump($file);
 
