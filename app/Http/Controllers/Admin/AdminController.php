@@ -85,8 +85,8 @@ class AdminController extends Controller {
                 $realPath = $file->getRealPath();
                 Excel::load($realPath, function($reader) {
                     $reader->each(function ($rows) {
-                        $student = new Student();
-                        $student->student_id = $rows[0];
+                        $student = new Teacher();
+                        $student->teacher_id = $rows[0];
                         $student->password = $rows[1];
 
                         if (!$student->save()) {
@@ -96,14 +96,35 @@ class AdminController extends Controller {
                     });
                 });
                 return redirect()->back()->with('success', '添加成功!');
-//                var_dump($id);
-//                var_dump($file);
+            }
+            exit;
+        }
+        if($id == 'teacher' && $request->isMethod('POST')){
+            // var_dump($_FILES);
+            $file = $request->file('source');
+            // dd($file);
+            //文件是否上传成功
+            if($file->isValid()){
+                //文件信息
+                $ext = $file->getClientOriginalExtension();
+                $realPath = $file->getRealPath();
+                Excel::load($realPath, function($reader) {
+                    $reader->each(function ($rows) {
+                        $teacher = new Student();
+                        $teacher->student_id = $rows[0];
+                        $teacher->password = $rows[1];
 
+                        if (!$teacher->save()) {
+                            return redirect()->back()->with('error', '添加失败!');
+                        }
+
+                    });
+                });
+                return redirect()->back()->with('success', '添加成功!');
             }
             exit;
         }
 
-//        return view('student.upload');
     }
 
     public function export(){
