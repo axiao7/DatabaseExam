@@ -59,6 +59,7 @@
 
 
 
+
 <script src="{{ asset('static/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('static/bootstrap/js/bootstrap.min.js') }}"></script>
 </body>
