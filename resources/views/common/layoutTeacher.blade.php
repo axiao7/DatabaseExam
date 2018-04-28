@@ -32,7 +32,6 @@
 {{--</ul>--}}
 {{--</div>--}}
 
-
 <div class="container">
     <div class="row" style="margin-top: 50px">
 
@@ -53,6 +52,7 @@
         </div>
     </div>
 </div>
+
 
 
 @yield('content')
