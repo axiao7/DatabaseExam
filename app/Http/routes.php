@@ -15,6 +15,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher'], function () {
+
+    Route::get('/', ['uses' => 'TeacherController@index']);
+//
+//    Route::get('studentinfo', ['uses' => 'TeacherController@student']);
+//
+//    Route::get('teacherinfo', ['uses' => 'TeacherController@teacher']);
+//
+//    Route::any('login', ['uses' => 'TeacherController@login']);
+//
+//    Route::any('upload/{id}', ['uses' => 'TeacherController@excelImport']);
+//
+//    Route::get('excel/export','TeacherController@export');
+
+//    Route::post('login', ['uses' => 'AdminController@login']);
+
+});
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['check.login']], function () {
 
     Route::get('/', ['uses' => 'AdminController@index']);
