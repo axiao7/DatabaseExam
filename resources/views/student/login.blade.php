@@ -2,13 +2,13 @@
 
 @section('content')
     {{--@if(count($errors))--}}
-        {{--<div class="alert alert-danger">--}}
-            {{--<ul>--}}
-                {{--@foreach($errors->all() as $error)--}}
-                    {{--<li>{{ $error }}</li>--}}
-                {{--@endforeach--}}
-            {{--</ul>--}}
-        {{--</div>--}}
+    {{--<div class="alert alert-danger">--}}
+    {{--<ul>--}}
+    {{--@foreach($errors->all() as $error)--}}
+    {{--<li>{{ $error }}</li>--}}
+    {{--@endforeach--}}
+    {{--</ul>--}}
+    {{--</div>--}}
     {{--@endif--}}
     <div class="container">
         <div class="row">
@@ -19,32 +19,32 @@
                         <form class="form-horizontal" role="form" method="POST" action="">
                             {{ csrf_field() }}
                             <div style="text-align: center">
-                                <h3 style="margin-bottom: 20px">管理员登陆</h3>
+                                <h3 style="margin-bottom: 20px">考生登陆</h3>
                             </div>
 
-                            <div class="form-group{{ $errors->has('Admin.admin_id') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">工号</label>
+                            <div class="form-group{{ $errors->has('Student.student_id') ? ' has-error' : '' }}">
+                                <label for="number" class="col-md-4 control-label">学号</label>
 
                                 <div class="col-md-6">
-                                    <input id="admin_id" type="input" class="form-control" name="Admin[admin_id]" value="{{ old('admin_id') }}">
+                                    <input id="student_id" type="input" class="form-control" name="Student[student_id]" value="{{ old('student_id') }}">
 
-                                    @if ($errors->has('Admin.admin_id'))
+                                    @if ($errors->has('Student.student_id'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('Admin.admin_id') }}</strong>
+                                        <strong>{{ $errors->first('Student.student_id') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('Admin.password') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('Student.password') ? ' has-error' : '' }}">
                                 <label for="password" class="col-md-4 control-label">密码</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="Admin[password]">
+                                    <input id="password" type="password" class="form-control" name="Student[password]">
 
-                                    @if ($errors->has('Admin.password'))
+                                    @if ($errors->has('Student.password'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('Admin.password') }}</strong>
+                                        <strong>{{ $errors->first('Student.password') }}</strong>
                                     </span>
                                     @endif
                                 </div>

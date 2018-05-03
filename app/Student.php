@@ -9,5 +9,5 @@ class Student extends Model
     //
     public $timestamps = false;
 
-    protected $fillable = ['teacher_id', 'password'];
+    protected $fillable = ['student_id', 'password'];
 }

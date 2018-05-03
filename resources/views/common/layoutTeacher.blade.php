@@ -9,20 +9,20 @@
     <title>毕业设计</title>
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">数据库在线考试管理</a>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">数据库原理在线考试管理</a>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 {{--<div class="bs-example" data-example-id="simple-nav-stacked">--}}
 {{--<ul class="nav nav-pills nav-stacked nav-pills-stacked-example">--}}
@@ -32,37 +32,36 @@
 {{--</ul>--}}
 {{--</div>--}}
 
-<div class="container">
-    <div class="row" style="margin-top: 50px">
+    <div class="container">
+        <div class="row" style="margin-top: 50px">
 
-        <!-- 左侧菜单区域   -->
-        <div class="col-md-3">
-            @section('leftmenu')
-                <div class="list-group">
-                    <a href="{{ url('admin') }}" class="list-group-item active">试卷管理</a>
-                    <a href="{{ url('admin/studentinfo') }}" class="list-group-item">学生信息导入</a>
-                    <a href="{{ url('admin/teacherinfo') }}" class="list-group-item">教师信息导入</a>
-                </div>
-            @show
-        </div>
+            <!-- 左侧菜单区域   -->
+            <div class="col-md-3">
+                @section('leftmenu')
+                    <div class="list-group">
+                        <a href="{{ url('teacher/quesbankmanager') }}" class="list-group-item
+                        {{ Request::getPathInfo() == '/teacher/quesbankmanager'
+                        || Request::getPathInfo() == '/teacher/quesbankmanager/choice'
+                        || Request::getPathInfo() == '/teacher/quesbankmanager/torf'
+                        || Request::getPathInfo() == '/teacher/quesbankmanager/subject'? 'active':'' }}">题库管理</a>
+                        <a href="{{ url('teacher/createtestpaper') }}" class="list-group-item
+                        {{ Request::getPathInfo() == '/teacher/createtestpaper' ? 'active':'' }}">组合试卷</a>
+                        <a href="{{ url('teacher/readpapers') }}" class="list-group-item
+                        {{ Request::getPathInfo() == '/teacher/readpapers' ? 'active':'' }}">批阅试卷</a>
+                        <a href="{{ url('teacher/scoreanalysis') }}" class="list-group-item
+                        {{ Request::getPathInfo() == '/teacher/scoreanalysis' ? 'active':'' }}">成绩分析</a>
+                    </div>
+                @show
+            </div>
 
-        <!-- 右侧内容区域 -->
-        <div class="col-md-9">
-            试卷信息
+            <!-- 右侧内容区域 -->
+            <div class="col-md-9">
+
+                @yield('rightcontent')
+
+            </div>
         </div>
     </div>
-</div>
-
-
-
-
-
-
-
-
-@yield('content')
-
-
 
 
 <script src="{{ asset('static/jquery/jquery.min.js') }}"></script>

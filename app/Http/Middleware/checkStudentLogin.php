@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckLogin
+class checkStudentLogin
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,9 @@ class CheckLogin
      */
     public function handle($request, Closure $next)
     {
-        if (!session('admin') &&  !$request->is('admin/login')) {
-            return redirect('admin/login');
+
+        if (!session('student') &&  !$request->is('student/login')) {
+            return redirect('student/login');
         }
 
         return $next($request);
