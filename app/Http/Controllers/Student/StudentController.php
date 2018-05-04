@@ -46,7 +46,7 @@ class StudentController extends Controller
             {
                 if ($stu['attributes']['student_id'] == $data['student_id'] && $stu['attributes']['password'] == $data['password']) {
                     //Session::put('student', 'success');
-                    return redirect('student/index');
+                    return redirect('student');
                 }
             }
 
@@ -60,5 +60,10 @@ class StudentController extends Controller
         }
 
         return view('student.login');
+    }
+
+    public function test()
+    {
+        return view('student.test');
     }
 }

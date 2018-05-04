@@ -14,12 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+// , 'middleware' => ['checkStudent']
+Route::group(['prefix' => 'student', 'namespace' => 'Student'], function () {
 
-Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => ['checkStudent']], function () {
-
-    Route::get('index', ['uses' => 'StudentController@index']);
+    Route::get('/', ['uses' => 'StudentController@index']);
 
     Route::any('login', ['uses' => 'StudentController@login']);
+
+    Route::any('test', ['uses' => 'StudentController@test']);
 
 });
 
