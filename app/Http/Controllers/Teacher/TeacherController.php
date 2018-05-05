@@ -191,4 +191,13 @@ class TeacherController extends Controller
         return view('teacher.createtestpaper.home');
     }
 
+    public function makepaper(Request $req)
+    {
+//        if ($req->isMethod('post')) {
+            $data = $req->input();
+//            $data = 'lwx';
+            return response()->json(array('msg'=> $data), 200);
+//        }
+    }
+
 }

@@ -33,6 +33,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher' ], function () {
     Route::get('quesbankmanager', ['uses' => 'TeacherController@bankhome']);
     // 单选题
     Route::get('quesbankmanager/choice', ['uses' => 'TeacherController@choice']);
+    Route::any('quesbankmanager/choice/makepaper', ['uses' => 'TeacherController@makepaper']);
     Route::any('quesbankmanager/choice/{id}', ['uses' => 'TeacherController@deletechoice']);
     // 判断题
     Route::get('quesbankmanager/torf', ['uses' => 'TeacherController@torf']);

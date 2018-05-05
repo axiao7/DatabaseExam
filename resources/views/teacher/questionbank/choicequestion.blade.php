@@ -56,54 +56,81 @@
 
 
     <div>
-        @foreach($choices as $choice)
-        <div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    {{ $id_++ }}.{{$choice->topic_content }}
-                </label>
+            @foreach($choices as $choice)
+                <div>
+                    <div class="checkbox">
+                        <label>
+                            <input class="choiceId" type="checkbox" value="{{ $choice->id }}" name="Choice">
+                            {{ $id_++ }}.{{$choice->topic_content }}
+                        </label>
 
-                <form action="{{ url('teacher/quesbankmanager/choice/'.$choice->id) }}" method="POST" style="display: inline;">
-                    {{ method_field('DELETE') }}
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-sm btn-danger">删除</button>
-                </form>
-            </div>
+                        <form action="{{ url('teacher/quesbankmanager/choice/'.$choice->id) }}" method="POST" style="display: inline;">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-sm btn-danger">删除</button>
+                        </form>
+                    </div>
 
-            <ul class="list-group">
-                <li class="list-group-item">
-                    A{{$choice->option_A}}
-                    @if($choice->right_answer == 'A')
-                        <span style="color: lightsalmon">[正解]</span>
-                    @endif
-                </li>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            A{{$choice->option_A}}
+                            @if($choice->right_answer == 'A')
+                                <span style="color: lightsalmon">[正解]</span>
+                            @endif
+                        </li>
 
-                <li class="list-group-item">
-                    B{{$choice->option_B}}
-                    @if($choice->right_answer == 'B')
-                        <span style="color: lightsalmon">[正解]</span>
-                    @endif
-                </li>
+                        <li class="list-group-item">
+                            B{{$choice->option_B}}
+                            @if($choice->right_answer == 'B')
+                                <span style="color: lightsalmon">[正解]</span>
+                            @endif
+                        </li>
 
 
-                <li class="list-group-item">
-                    C{{$choice->option_C}}
-                    @if($choice->right_answer == 'C')
-                        <span style="color: lightsalmon">[正解]</span>
-                    @endif
-                </li>
+                        <li class="list-group-item">
+                            C{{$choice->option_C}}
+                            @if($choice->right_answer == 'C')
+                                <span style="color: lightsalmon">[正解]</span>
+                            @endif
+                        </li>
 
-                <li class="list-group-item">
-                    D{{$choice->option_D}}
-                    @if($choice->right_answer == 'D')
-                        <span style="color: lightsalmon">[正解]</span>
-                    @endif
-                </li>
+                        <li class="list-group-item">
+                            D{{$choice->option_D}}
+                            @if($choice->right_answer == 'D')
+                                <span style="color: lightsalmon">[正解]</span>
+                            @endif
+                        </li>
 
-            </ul>
-        </div>
-        @endforeach
+                    </ul>
+                </div>
+            @endforeach
+            <button id="submit_choice" type="button" class="btn btn-primary">提交</button>
+
     </div>
+    <script>
+        $('#submit_choice').click(function () {
+            var checkId = [];
+            $("input[name='Choice']:checked").each(function (i) {
+                checkId[i] =$(this).val();
+            });
+            makepaper_choice(checkId);
+        });
+        function makepaper_choice(data){
+            // $.post('choice/makepaper', {checkId: data}, function (json) {
+            //
+            // }, 'json');
+            $.ajax({
+                type:'post',
+                url:'choice/makepaper',
+                data: {checkId:data},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    console.log(data);
+                }
+            });
+        }
+    </script>
 @endsection
 

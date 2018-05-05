@@ -5,7 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('static/bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ asset('static/jquery/jquery.min.js') }}"></script>
     <title>毕业设计</title>
 </head>
 <body>
@@ -64,7 +66,7 @@
     </div>
 
 
-<script src="{{ asset('static/jquery/jquery.min.js') }}"></script>
+
 <script src="{{ asset('static/bootstrap/js/bootstrap.min.js') }}"></script>
 </body>
 </html>
