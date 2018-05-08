@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
 {
@@ -45,17 +46,12 @@ class StudentController extends Controller
             foreach ($stus as $stu)
             {
                 if ($stu['attributes']['student_id'] == $data['student_id'] && $stu['attributes']['password'] == $data['password']) {
-                    //Session::put('student', 'success');
+                    Session::put('student', 'success');
                     return redirect('student');
                 }
             }
 
             return redirect()->back()->with('error', '用户名或者密码错误!');
-
-//            return view('common.login', [
-//                'data' => $data
-//            ]);
-//            var_dump($data);
 
         }
 

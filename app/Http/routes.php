@@ -14,8 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-// , 'middleware' => ['checkStudent']
-Route::group(['prefix' => 'student', 'namespace' => 'Student'], function () {
+//
+Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => ['checkStudent']], function () {
 
     Route::get('/', ['uses' => 'StudentController@index']);
 
@@ -25,9 +25,11 @@ Route::group(['prefix' => 'student', 'namespace' => 'Student'], function () {
 
 });
 
-Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher' ], function () {
+Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['checkTeacher'] ], function () {
 
     Route::get('/', ['uses' => 'TeacherController@index']);
+
+    Route::any('login', ['uses' => 'TeacherController@login']);
 
     // 题库管理首页
     Route::get('quesbankmanager', ['uses' => 'TeacherController@bankhome']);
@@ -37,17 +39,19 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher' ], function () {
     Route::any('quesbankmanager/choice/{id}', ['uses' => 'TeacherController@deletechoice']);
     // 判断题
     Route::get('quesbankmanager/torf', ['uses' => 'TeacherController@torf']);
+    Route::any('quesbankmanager/torf/makepaper', ['uses' => 'TeacherController@makepaper_torf']);
     Route::any('quesbankmanager/torf/{id}', ['uses' => 'TeacherController@deletetorf']);
     // 主观题
     Route::get('quesbankmanager/subject', ['uses' => 'TeacherController@subject']);
+    Route::any('quesbankmanager/subject/makepaper', ['uses' => 'TeacherController@makepaper_subject']);
     Route::any('quesbankmanager/subject/{id}', ['uses' => 'TeacherController@deletesubject']);
     // 题目上传
     Route::any('quesbankmanager/upload/{name}', ['uses' => 'TeacherController@excelImport']);
 
     // 组合试卷首页
     Route::get('createtestpaper', ['uses' => 'TeacherController@paperhome']);
-
-    //Route::get('createtestpaper', ['uses' => 'TeacherController@']);
+    // 提交审核
+    Route::any('createtestpaper/check', ['uses' => 'TeacherController@check']);
 
     // 批阅试卷
     Route::get('readpapers', ['uses' => 'TeacherController@']);
