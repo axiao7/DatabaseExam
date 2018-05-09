@@ -60,7 +60,8 @@
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="">
+                        {{--<input type="checkbox" value="">--}}
+                        <input class="torfId" type="checkbox" value="{{ $torf->id }}" name="Torf">
                         {{ $id_++ }}.{{$torf->topic_content }}
                     </label>
                     <form action="{{ url('teacher/quesbankmanager/torf/'.$torf->id) }}" method="POST" style="display: inline;">
@@ -84,11 +85,37 @@
                             <span style="color: lightsalmon">[正解]</span>
                         @endif
                     </li>
-
-
                 </ul>
 
             </div>
         @endforeach
+        <button id="submit_torf" type="button" class="btn btn-primary">提交</button>
     </div>
+
+    <script>
+        $('#submit_torf').click(function () {
+            var checkId_torf = [];
+            $("input[name='Torf']:checked").each(function (i) {
+                checkId_torf[i] =$(this).val();
+            });
+            makepaper_choice(checkId_torf);
+        });
+        function makepaper_choice(data){
+            // $.post('choice/makepaper', {checkId: data}, function (json) {
+            //
+            // }, 'json');
+            $.ajax({
+                type:'post',
+                url:'torf/makepaper',
+                data: {checkId_torf:data},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    //console.log(data);
+                    alert("判断题题组卷成功");
+                }
+            });
+        }
+    </script>
 @endsection

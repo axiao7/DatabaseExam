@@ -56,11 +56,12 @@
 
     <div>
         @foreach($subjects as $subject)
-            <div >
+            <div>
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="">
+                        {{--<input type="checkbox" value="">--}}
+                        <input class="subjectId" type="checkbox" value="{{ $subject->id }}" name="Subject">
                         {{ $id_++ }}.{{$subject->topic_content }}
                     </label>
                     <form action="{{ url('teacher/quesbankmanager/subject/'.$subject->id) }}" method="POST" style="display: inline;">
@@ -78,7 +79,36 @@
 
             </div>
         @endforeach
+
+        <button id="submit_subject" type="button" class="btn btn-primary">提交</button>
     </div>
+
+    <script>
+        $('#submit_subject').click(function () {
+            var checkId_subject = [];
+            $("input[name='Subject']:checked").each(function (i) {
+                checkId_subject[i] =$(this).val();
+            });
+            makepaper_choice(checkId_subject);
+        });
+        function makepaper_choice(data){
+            // $.post('choice/makepaper', {checkId: data}, function (json) {
+            //
+            // }, 'json');
+            $.ajax({
+                type:'post',
+                url:'subject/makepaper',
+                data: {checkId_subject:data},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    //console.log(data);
+                    alert("主观题组卷成功");
+                }
+            });
+        }
+    </script>
 
 @endsection
 

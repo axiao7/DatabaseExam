@@ -127,7 +127,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success:function(data){
-                    console.log(data);
+                    alert("单选题组卷成功");
                 }
             });
         }
