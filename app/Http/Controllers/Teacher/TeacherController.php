@@ -295,10 +295,11 @@ class TeacherController extends Controller
 //        }
 
         $data = $_POST['checkId'];
+        $paper = $_POST['paper'];
 //        dd($data);
 //        return ;
-        if (TestPaper::find(3)) {
-            $testpaper = TestPaper::find(3);
+        if (TestPaper::find($paper)) {
+            $testpaper = TestPaper::find($paper);
         } else {
             $testpaper = new TestPaper();
         }

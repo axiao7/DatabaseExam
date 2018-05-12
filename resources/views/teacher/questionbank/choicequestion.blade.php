@@ -104,7 +104,14 @@
                     </ul>
                 </div>
             @endforeach
-            <button id="submit_choice" type="button" class="btn btn-primary">提交</button>
+                <div class="form">
+                    <select id="paper_flag" class="select">
+                        <option value="1">试卷A</option>
+                        <option value="2">试卷B</option>
+                    </select>
+                </div>
+
+                <button id="submit_choice" type="button" class="btn btn-primary">提交</button>
 
     </div>
     <script>
@@ -113,16 +120,17 @@
             $("input[name='Choice']:checked").each(function (i) {
                 checkId[i] =$(this).val();
             });
-            makepaper_choice(checkId);
+            var _paper = $("#paper_flag").val();
+            makepaper_choice(checkId, _paper);
         });
-        function makepaper_choice(data){
+        function makepaper_choice(data, _paper){
             // $.post('choice/makepaper', {checkId: data}, function (json) {
             //
             // }, 'json');
             $.ajax({
                 type:'post',
                 url:'choice/makepaper',
-                data: {checkId:data},
+                data: {checkId:data, paper: _paper},
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
