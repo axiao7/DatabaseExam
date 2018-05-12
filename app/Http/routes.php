@@ -14,7 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-//
 Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => ['checkStudent']], function () {
 
     Route::get('/', ['uses' => 'StudentController@index']);
