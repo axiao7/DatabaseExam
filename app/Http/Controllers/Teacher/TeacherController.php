@@ -326,7 +326,7 @@ class TeacherController extends Controller
         $testpaper->choice_20 = $data[19];
 
         if ($testpaper->save()){
-            return ;
+            return response()->json(array('msg'=> 'success'), 200);
         }
         else
             return view('teacher.questionbank.choicequestion');
