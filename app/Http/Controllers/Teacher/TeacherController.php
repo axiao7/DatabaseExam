@@ -233,55 +233,86 @@ class TeacherController extends Controller
     // 组卷首页
     public function paperhome()
     {
-        $topic = TestPaper::find(3);
+        return view('teacher.createtestpaper.home');
+    }
 
-        $choices[0] = Choice::find($topic->choice_1);
-        $choices[1] = Choice::find($topic->choice_2);
-        $choices[2] = Choice::find($topic->choice_3);
-        $choices[3] = Choice::find($topic->choice_4);
-        $choices[4] = Choice::find($topic->choice_5);
-        $choices[5] = Choice::find($topic->choice_6);
-        $choices[6] = Choice::find($topic->choice_7);
-        $choices[7] = Choice::find($topic->choice_8);
-        $choices[8] = Choice::find($topic->choice_9);
-        $choices[9] = Choice::find($topic->choice_10);
+    public function seekpaper($paper_id)
+    {
+        $topic = TestPaper::find($paper_id);
 
-        $choices[10] = Choice::find($topic->choice_11);
-        $choices[11] = Choice::find($topic->choice_12);
-        $choices[12] = Choice::find($topic->choice_13);
-        $choices[13] = Choice::find($topic->choice_14);
-        $choices[14] = Choice::find($topic->choice_15);
-        $choices[15] = Choice::find($topic->choice_16);
-        $choices[16] = Choice::find($topic->choice_17);
-        $choices[17] = Choice::find($topic->choice_18);
-        $choices[18] = Choice::find($topic->choice_19);
-        $choices[19] = Choice::find($topic->choice_20);
+        if ($topic) {
+            $choices[0] = Choice::find($topic->choice_1);
+            $choices[1] = Choice::find($topic->choice_2);
+            $choices[2] = Choice::find($topic->choice_3);
+            $choices[3] = Choice::find($topic->choice_4);
+            $choices[4] = Choice::find($topic->choice_5);
+            $choices[5] = Choice::find($topic->choice_6);
+            $choices[6] = Choice::find($topic->choice_7);
+            $choices[7] = Choice::find($topic->choice_8);
+            $choices[8] = Choice::find($topic->choice_9);
+            $choices[9] = Choice::find($topic->choice_10);
 
-        $torfs[0] = Torf::find($topic->torf_1);
-        $torfs[1] = Torf::find($topic->torf_2);
-        $torfs[2] = Torf::find($topic->torf_3);
-        $torfs[3] = Torf::find($topic->torf_4);
-        $torfs[4] = Torf::find($topic->torf_5);
-        $torfs[5] = Torf::find($topic->torf_6);
-        $torfs[6] = Torf::find($topic->torf_7);
-        $torfs[7] = Torf::find($topic->torf_8);
-        $torfs[8] = Torf::find($topic->torf_9);
-        $torfs[9] = Torf::find($topic->torf_10);
+            $choices[10] = Choice::find($topic->choice_11);
+            $choices[11] = Choice::find($topic->choice_12);
+            $choices[12] = Choice::find($topic->choice_13);
+            $choices[13] = Choice::find($topic->choice_14);
+            $choices[14] = Choice::find($topic->choice_15);
+            $choices[15] = Choice::find($topic->choice_16);
+            $choices[16] = Choice::find($topic->choice_17);
+            $choices[17] = Choice::find($topic->choice_18);
+            $choices[18] = Choice::find($topic->choice_19);
+            $choices[19] = Choice::find($topic->choice_20);
 
-        $subjects[0] = Subject::find($topic->subject_1);
-        $subjects[1] = Subject::find($topic->subject_2);
-        $subjects[2] = Subject::find($topic->subject_3);
-        $subjects[3] = Subject::find($topic->subject_4);
-        $subjects[4] = Subject::find($topic->subject_5);
+            $torfs[0] = Torf::find($topic->torf_1);
+            $torfs[1] = Torf::find($topic->torf_2);
+            $torfs[2] = Torf::find($topic->torf_3);
+            $torfs[3] = Torf::find($topic->torf_4);
+            $torfs[4] = Torf::find($topic->torf_5);
+            $torfs[5] = Torf::find($topic->torf_6);
+            $torfs[6] = Torf::find($topic->torf_7);
+            $torfs[7] = Torf::find($topic->torf_8);
+            $torfs[8] = Torf::find($topic->torf_9);
+            $torfs[9] = Torf::find($topic->torf_10);
+
+            $subjects[0] = Subject::find($topic->subject_1);
+            $subjects[1] = Subject::find($topic->subject_2);
+            $subjects[2] = Subject::find($topic->subject_3);
+            $subjects[3] = Subject::find($topic->subject_4);
+            $subjects[4] = Subject::find($topic->subject_5);
 
 
-        $id = 1;
-        return view('teacher.createtestpaper.home',[
-            'choices' => $choices,
-            'torfs' => $torfs,
-            'subjects' => $subjects,
-            'id' => $id,
-        ]);
+            $id = 1;
+            if ($paper_id==1) {
+                return view('teacher.createtestpaper.paper_A',[
+                    'no_info' => 0,
+                    'choices' => $choices,
+                    'torfs' => $torfs,
+                    'subjects' => $subjects,
+                    'id' => $id,
+                ]);
+            } else if ($paper_id==2){
+                return view('teacher.createtestpaper.paper_B',[
+                    'no_info' => 0,
+                    'choices' => $choices,
+                    'torfs' => $torfs,
+                    'subjects' => $subjects,
+                    'id' => $id,
+                ]);
+            } else ;
+
+        }
+        else if ($paper_id==1){
+            return view('teacher.createtestpaper.paper_A',[
+                'no_info' => 1,
+            ]);
+        }
+        else if ($paper_id==2){
+            return view('teacher.createtestpaper.paper_B',[
+                'no_info' => 1,
+            ]);
+        } else ;
+
+
     }
 
     public function makepaper(Request $req)
@@ -337,11 +368,12 @@ class TeacherController extends Controller
     public function makepaper_torf(Request $req)
     {
         $data_torf = $_POST['checkId_torf'];
+        $paper = $_POST['paper'];
 //        dd($data);
 //        return ;
 
-        if (TestPaper::find(3)) {
-            $testpaper = TestPaper::find(3);
+        if (TestPaper::find($paper)) {
+            $testpaper = TestPaper::find($paper);
         } else {
             $testpaper = new TestPaper();
         }
@@ -358,7 +390,7 @@ class TeacherController extends Controller
         $testpaper->torf_10 = $data_torf[9];
 
         if ($testpaper->save()){
-            return ;
+            return response()->json(array('msg'=> 'success'), 200);
         }
         else
             return view('teacher.questionbank.trueorfalse');
@@ -368,10 +400,11 @@ class TeacherController extends Controller
     public function makepaper_subject(Request $req)
     {
         $data_subject = $_POST['checkId_subject'];
+        $paper = $_POST['paper'];
 //        dd($data);
 //        return ;
-        if (TestPaper::find(3)) {
-            $testpaper = TestPaper::find(3);
+        if (TestPaper::find($paper)) {
+            $testpaper = TestPaper::find($paper);
         } else {
             $testpaper = new TestPaper();
         }
@@ -384,7 +417,7 @@ class TeacherController extends Controller
 
 
         if ($testpaper->save()){
-            return ;
+            return response()->json(array('msg'=> 'success'), 200);
         }
         else
             return view('teacher.questionbank.subjectitem');
@@ -393,7 +426,7 @@ class TeacherController extends Controller
 
     public function check()
     {
-        $testpaper = TestPaper::find(3);
+        $testpaper = TestPaper::find();
         $testpaper->check_or_not = 1;
         if ($testpaper->save()){
             return 1;

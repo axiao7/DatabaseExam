@@ -89,7 +89,14 @@
 
             </div>
         @endforeach
-        <button id="submit_torf" type="button" class="btn btn-primary">提交</button>
+            <div class="form">
+                <select id="paper_flag" class="select">
+                    <option value="1">试卷A</option>
+                    <option value="2">试卷B</option>
+                </select>
+            </div>
+
+        <button id="submit_torf" type="button" class="btn btn-primary">组卷</button>
     </div>
 
     <script>
@@ -98,22 +105,25 @@
             $("input[name='Torf']:checked").each(function (i) {
                 checkId_torf[i] =$(this).val();
             });
-            makepaper_choice(checkId_torf);
+            var _paper = $("#paper_flag").val();
+            makepaper_torf(checkId_torf,_paper);
         });
-        function makepaper_choice(data){
+        function makepaper_torf(data,_paper){
             // $.post('choice/makepaper', {checkId: data}, function (json) {
             //
             // }, 'json');
             $.ajax({
                 type:'post',
                 url:'torf/makepaper',
-                data: {checkId_torf:data},
+                data: {checkId_torf:data, paper: _paper},
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success:function(data){
                     //console.log(data);
-                    alert("判断题题组卷成功");
+                    if(data['msg']=='success'){
+                        alert('判断题组卷成功');
+                    }
                 }
             });
         }

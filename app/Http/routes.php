@@ -49,6 +49,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
 
     // 组合试卷首页
     Route::get('createtestpaper', ['uses' => 'TeacherController@paperhome']);
+    Route::get('createtestpaper/{paper_id}', ['uses' => 'TeacherController@seekpaper']);
     // 提交审核
     Route::any('createtestpaper/check', ['uses' => 'TeacherController@check']);
 

@@ -111,7 +111,7 @@
                     </select>
                 </div>
 
-                <button id="submit_choice" type="button" class="btn btn-primary">提交</button>
+                <button id="submit_choice" type="button" class="btn btn-primary">组卷</button>
 
     </div>
     <script>

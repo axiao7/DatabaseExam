@@ -79,8 +79,14 @@
 
             </div>
         @endforeach
+            <div class="form">
+                <select id="paper_flag" class="select">
+                    <option value="1">试卷A</option>
+                    <option value="2">试卷B</option>
+                </select>
+            </div>
 
-        <button id="submit_subject" type="button" class="btn btn-primary">提交</button>
+        <button id="submit_subject" type="button" class="btn btn-primary">组卷</button>
     </div>
 
     <script>
@@ -89,22 +95,25 @@
             $("input[name='Subject']:checked").each(function (i) {
                 checkId_subject[i] =$(this).val();
             });
-            makepaper_choice(checkId_subject);
+            var _paper = $("#paper_flag").val();
+            makepaper_subject(checkId_subject,_paper);
         });
-        function makepaper_choice(data){
+        function makepaper_subject(data,_paper){
             // $.post('choice/makepaper', {checkId: data}, function (json) {
             //
             // }, 'json');
             $.ajax({
                 type:'post',
                 url:'subject/makepaper',
-                data: {checkId_subject:data},
+                data: {checkId_subject:data, paper: _paper},
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success:function(data){
                     //console.log(data);
-                    alert("主观题组卷成功");
+                    if(data['msg']=='success'){
+                        alert('主观题组卷成功');
+                    }
                 }
             });
         }

@@ -47,7 +47,7 @@
                         || Request::getPathInfo() == '/teacher/quesbankmanager/torf'
                         || Request::getPathInfo() == '/teacher/quesbankmanager/subject'? 'active':'' }}">题库管理</a>
                         <a href="{{ url('teacher/createtestpaper') }}" class="list-group-item
-                        {{ Request::getPathInfo() == '/teacher/createtestpaper' ? 'active':'' }}">组合试卷</a>
+                        {{ Request::getPathInfo() == '/teacher/createtestpaper' ? 'active':'' }}">试卷管理</a>
                         <a href="{{ url('teacher/readpapers') }}" class="list-group-item
                         {{ Request::getPathInfo() == '/teacher/readpapers' ? 'active':'' }}">批阅试卷</a>
                         <a href="{{ url('teacher/scoreanalysis') }}" class="list-group-item
