@@ -51,7 +51,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::get('createtestpaper', ['uses' => 'TeacherController@paperhome']);
     Route::get('createtestpaper/{paper_id}', ['uses' => 'TeacherController@seekpaper']);
     // 提交审核
-    Route::any('createtestpaper/check', ['uses' => 'TeacherController@check']);
+    Route::any('createtestpaper/submit_check/{paper_id}', ['uses' => 'TeacherController@submit_check']);
 
     // 批阅试卷
     Route::get('readpapers', ['uses' => 'TeacherController@']);
@@ -76,6 +76,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['che
     Route::get('studentinfo', ['uses' => 'AdminController@student']);
 
     Route::get('teacherinfo', ['uses' => 'AdminController@teacher']);
+
+    Route::get('checkpaper/{paper_id}', ['uses' => 'AdminController@check_paper']);
+
+    Route::any('checkpaper/submitcheck', ['uses' => 'AdminController@submit_checkinfo']);
 
     Route::any('login', ['uses' => 'AdminController@login']);
 

@@ -424,13 +424,17 @@ class TeacherController extends Controller
 
     }
 
-    public function check()
+    public function submit_check($paper_id)
     {
-        $testpaper = TestPaper::find();
-        $testpaper->check_or_not = 1;
-        if ($testpaper->save()){
-            return 1;
+        $testpaper = TestPaper::find($paper_id);
+        if ($testpaper) {
+            $testpaper->check_or_not = 1;
+
+            if ($testpaper->save()){
+                return redirect()->back()->with('success', '提交审核成功!');
+            }
         }
+
     }
 //view('teacher.createtestpaper.home')
 }

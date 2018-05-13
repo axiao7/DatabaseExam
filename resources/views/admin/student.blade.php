@@ -8,7 +8,7 @@
             <div class="col-md-3">
                 @section('leftmenu')
                     <div class="list-group">
-                        <a href="{{ url('admin/') }}" class="list-group-item">试卷管理</a>
+                        <a href="{{ url('admin/') }}" class="list-group-item">试卷审核</a>
                         <a href="{{ url('admin/studentinfo') }}" class="list-group-item active">学生信息导入</a>
                         <a href="{{ url('admin/teacherinfo') }}" class="list-group-item">教师信息导入</a>
                     </div>

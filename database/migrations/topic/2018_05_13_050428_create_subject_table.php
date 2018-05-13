@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTorfTable extends Migration
+class CreateSubjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTorfTable extends Migration
     public function up()
     {
         //
-        Schema::create('torf', function (Blueprint $table) {
+        Schema::create('subject', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('topic_content',50);
-            $table->char('right_answer');
-            $table->char('difficulty');
+            $table->string('topic_content',1000);
+            $table->string('right_answer',1000);
+            $table->char('difficulty',2);
         });
     }
 
@@ -29,6 +29,6 @@ class CreateTorfTable extends Migration
     public function down()
     {
         //
-        Schema::drop('torf');
+        Schema::drop('subject');
     }
 }
