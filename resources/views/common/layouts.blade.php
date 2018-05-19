@@ -21,7 +21,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">数据库原理在线考试系统</a>
+                <a class="navbar-brand" href="{{ url('/') }}">数据库原理在线考试系统</a>
             </div>
         </div>
     </nav>

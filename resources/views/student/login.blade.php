@@ -30,8 +30,8 @@
 
                                     @if ($errors->has('Student.student_id'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('Student.student_id') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('Student.student_id') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -44,8 +44,8 @@
 
                                     @if ($errors->has('Student.password'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('Student.password') }}</strong>
-                                    </span>
+                                            <strong>{{ $errors->first('Student.password') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -57,8 +57,8 @@
                                     </button>
                                     @if (Session::get('error'))
                                         <span class="help-block">
-                                        <strong>{{ Session::get('error') }}</strong>
-                                    </span>
+                                            <strong>{{ Session::get('error') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>

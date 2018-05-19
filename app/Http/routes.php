@@ -16,11 +16,15 @@ Route::get('/', function () {
 });
 Route::group(['prefix' => 'student', 'namespace' => 'Student', 'middleware' => ['checkStudent']], function () {
 
-    Route::get('/', ['uses' => 'StudentController@index']);
-
     Route::any('login', ['uses' => 'StudentController@login']);
 
-    Route::any('test', ['uses' => 'StudentController@test']);
+    Route::get('/{stu_id?}', ['uses' => 'StudentController@index']);
+
+    Route::any('test/{stu_id}', ['uses' => 'StudentController@test'])
+        ->middleware('onlineTest')
+        ->where('stu_id','[0-9]+');
+
+    Route::any('test/submitpaper', ['uses' => 'StudentController@submit_paper']);
 
 });
 
@@ -54,7 +58,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::any('createtestpaper/submit_check/{paper_id}', ['uses' => 'TeacherController@submit_check']);
 
     // 批阅试卷
-    Route::get('readpapers', ['uses' => 'TeacherController@']);
+    Route::get('readpapers', ['uses' => 'TeacherController@readpapers']);
 
     // 成绩分析
     Route::get('scoreanalysis', ['uses' => 'TeacherController@']);

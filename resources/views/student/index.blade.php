@@ -1,4 +1,4 @@
-@extends('common.layouts')
+@extends('common.layoutStudent')
 
 @section('content')
     <div style="width: 20%;margin-left: 30%;margin-right: 50%">
@@ -19,7 +19,7 @@
 
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-default">
-                <a href="{{ url('student/test') }}">进入考试</a>
+                <a href="{{ url('student/test/'.$_stu_id) }}">进入考试</a>
             </button>
         </div>
 

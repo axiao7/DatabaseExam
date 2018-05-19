@@ -52,5 +52,6 @@ class Kernel extends HttpKernel
         'check.login' => \App\Http\Middleware\CheckLogin::class,
         'checkTeacher' => \App\Http\Middleware\checkTeacherLogin::class,
         'checkStudent' => \App\Http\Middleware\checkStudentLogin::class,
+        'onlineTest' => \App\Http\Middleware\OnlineTest::class,
     ];
 }
