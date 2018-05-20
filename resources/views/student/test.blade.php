@@ -128,7 +128,6 @@
                     //console.log(data)
                     if(data['msg']=='success'){
                         alert('交卷成功');
-
                     }
                 }
             });

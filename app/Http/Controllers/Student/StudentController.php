@@ -180,7 +180,7 @@ class StudentController extends Controller
         } else {
             $answerpaper = new AnswerPaper();
         }
-
+        // 保存答卷
         $answerpaper->choice_1 = $choice[0];
         $answerpaper->choice_2 = $choice[1];
         $answerpaper->choice_3 = $choice[2];
@@ -219,6 +219,67 @@ class StudentController extends Controller
         $answerpaper->subject_3 = $subject[2];
         $answerpaper->subject_4 = $subject[3];
         $answerpaper->subject_5 = $subject[4];
+
+        //非主观题自动阅卷
+        $topic = TestPaper::find(1);
+
+        if ($topic) {
+            $r_choices[0] = Choice::find($topic->choice_1)->right_answer;
+            $r_choices[1] = Choice::find($topic->choice_2)->right_answer;
+            $r_choices[2] = Choice::find($topic->choice_3)->right_answer;
+            $r_choices[3] = Choice::find($topic->choice_4)->right_answer;
+            $r_choices[4] = Choice::find($topic->choice_5)->right_answer;
+            $r_choices[5] = Choice::find($topic->choice_6)->right_answer;
+            $r_choices[6] = Choice::find($topic->choice_7)->right_answer;
+            $r_choices[7] = Choice::find($topic->choice_8)->right_answer;
+            $r_choices[8] = Choice::find($topic->choice_9)->right_answer;
+            $r_choices[9] = Choice::find($topic->choice_10)->right_answer;
+
+            $r_choices[10] = Choice::find($topic->choice_11)->right_answer;
+            $r_choices[11] = Choice::find($topic->choice_12)->right_answer;
+            $r_choices[12] = Choice::find($topic->choice_13)->right_answer;
+            $r_choices[13] = Choice::find($topic->choice_14)->right_answer;
+            $r_choices[14] = Choice::find($topic->choice_15)->right_answer;
+            $r_choices[15] = Choice::find($topic->choice_16)->right_answer;
+            $r_choices[16] = Choice::find($topic->choice_17)->right_answer;
+            $r_choices[17] = Choice::find($topic->choice_18)->right_answer;
+            $r_choices[18] = Choice::find($topic->choice_19)->right_answer;
+            $r_choices[19] = Choice::find($topic->choice_20)->right_answer;
+
+            $r_torfs[0] = Torf::find($topic->torf_1)->right_answer;
+            $r_torfs[1] = Torf::find($topic->torf_2)->right_answer;
+            $r_torfs[2] = Torf::find($topic->torf_3)->right_answer;
+            $r_torfs[3] = Torf::find($topic->torf_4)->right_answer;
+            $r_torfs[4] = Torf::find($topic->torf_5)->right_answer;
+            $r_torfs[5] = Torf::find($topic->torf_6)->right_answer;
+            $r_torfs[6] = Torf::find($topic->torf_7)->right_answer;
+            $r_torfs[7] = Torf::find($topic->torf_8)->right_answer;
+            $r_torfs[8] = Torf::find($topic->torf_9)->right_answer;
+            $r_torfs[9] = Torf::find($topic->torf_10)->right_answer;
+        }
+
+        $choice_score = 0;
+        $torf_score = 0;
+
+        for ($i=0;$i<20;$i++)
+        {
+            if ($choice[$i]==$r_choices[$i]) {
+                $choice_score += 2;
+            }
+        }
+
+        for ($i=0;$i<10;$i++)
+        {
+            if ($torf[$i]=='T'&&$r_torfs[$i]=='对') {
+                $torf_score += 1;
+            }
+            if ($torf[$i]=='F'&&$r_torfs[$i]=='错') {
+                $torf_score += 1;
+            }
+        }
+
+        $answerpaper->score_1 = $choice_score;
+        $answerpaper->score_2 = $torf_score;
 
         if ($answerpaper->save()){
             return response()->json(array('msg' => 'success'), 200);

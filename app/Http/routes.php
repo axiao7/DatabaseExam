@@ -58,7 +58,11 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::any('createtestpaper/submit_check/{paper_id}', ['uses' => 'TeacherController@submit_check']);
 
     // 批阅试卷
-    Route::get('readpapers', ['uses' => 'TeacherController@readpapers']);
+    Route::get('readpapers', ['uses' => 'TeacherController@readhome']);
+    Route::get('student/detail/{id}', ['uses' => 'TeacherController@detail']);
+    Route::any('read/{id}', ['uses' => 'TeacherController@show_subject'])
+        ->where('id','[0-9]+');
+    Route::any('read/read_result', ['uses' => 'TeacherController@read_subject_result']);
 
     // 成绩分析
     Route::get('scoreanalysis', ['uses' => 'TeacherController@']);

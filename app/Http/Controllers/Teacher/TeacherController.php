@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Teacher;
 
+use App\AnswerPaper;
 use App\Choice;
+use App\Student;
 use App\Subject;
 use App\Teacher;
 use App\TestPaper;
@@ -436,5 +438,87 @@ class TeacherController extends Controller
         }
 
     }
-//view('teacher.createtestpaper.home')
+
+    public function readhome()
+    {
+        $students = Student::paginate(5);
+
+        return view('teacher.readpaper.home',[
+            'students' => $students,
+        ]);
+
+    }
+
+    public function detail($id)
+    {
+
+        $stu_answer = AnswerPaper::find($id);
+
+        $student = Student::find($id);
+
+        $choice_score = $stu_answer->score_1;
+        $torf_score = $stu_answer->score_2;
+        $subject_score = $stu_answer->score_3_1 + $stu_answer->score_3_2
+            + $stu_answer->score_3_3 + $stu_answer->score_3_4 + $stu_answer->score_3_5;
+        $read_or_not = $stu_answer->read_or_not;
+        $total_score = $stu_answer->total_score;
+
+        return view('teacher.readpaper.detail',[
+            'student' => $student,
+            'choice_score' => $choice_score,
+            'torf_score' => $torf_score,
+            'subject_score' => $subject_score,
+            'read_or_not' => $read_or_not,
+            'total_score' => $total_score,
+        ]);
+
+    }
+
+    public function show_subject($id)
+    {
+        $stu_answer = AnswerPaper::find($id);
+
+        $subjects[0] = $stu_answer->subject_1;
+        $subjects[1] = $stu_answer->subject_2;
+        $subjects[2] = $stu_answer->subject_3;
+        $subjects[3] = $stu_answer->subject_4;
+        $subjects[4] = $stu_answer->subject_5;
+
+        $topic_id = 0;
+
+        return view('teacher.readpaper.read',[
+            'subjects' => $subjects,
+            'id' => $topic_id,
+            'paper_id' => $id,
+        ]);
+    }
+
+    public function read_subject_result()
+    {
+        $result = $_POST['read_result'];
+        $paper_id = $_POST['paper_id'];
+//        dd($paper_id);
+//        dd($result);
+
+        $stu_answer = AnswerPaper::find($paper_id);
+
+        $stu_answer->score_3_1 = $result[0];
+        $stu_answer->score_3_2 = $result[1];
+        $stu_answer->score_3_3 = $result[2];
+        $stu_answer->score_3_4 = $result[3];
+        $stu_answer->score_3_5 = $result[4];
+
+        $stu_answer->total_score = $result[0] + $result[1] +
+            $result[2] + $result[3] + $result[4] +
+            $stu_answer->score_1 + $stu_answer->score_2;
+
+        $stu_answer->read_or_not = 1;
+
+        if ($stu_answer->save()){
+            return response()->json(array('msg'=> 'success'), 200);
+        }
+        else
+            return view('teacher.readpaper.read');
+    }
+//
 }
