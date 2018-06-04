@@ -10,24 +10,6 @@
         </ul>
     </div>
 
-    {{--文件上传--}}
-    {{--<div class="row">--}}
-        {{--<div class="col-md-8 col-md-offset-2">--}}
-            {{--<div class="panel panel-default">--}}
-                {{--<div class="panel-heading">--}}
-                    {{--批量导入题目--}}
-                {{--</div>--}}
-                {{--<div class="panel-body">--}}
-                    {{--<form class="form-horizontal" role="form" method="POST" action="{{ url('teacher/quesbankmanager/upload', ['name' => 'subject']) }}" enctype="multipart/form-data">--}}
-                        {{--{{ csrf_field() }}--}}
-
-                        {{--@include('common.upload')--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-
     {{--弹出框文件上传--}}
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -38,6 +20,7 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">导入主观题</h4>
@@ -55,15 +38,31 @@
     </div>
 
     <div>
+        <hr>
+        <div style="position: relative; left: 33%;">
+            <b>难度系数</b>：
+            高<img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}">
+            | 中<img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}">
+            | 低<img src="{{ asset('static/star.png') }}">
+        </div>
+
         @foreach($subjects as $subject)
             <div>
-
                 <div class="checkbox">
+                    @if($subject->difficulty=='高')
+                        <img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}">
+                    @elseif($subject->difficulty=='中')
+                        <img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}"><span style="width: 16px"></span>
+                    @elseif($subject->difficulty=='低')
+                        <img src="{{ asset('static/star.png') }}"><span style="width: 32px"></span>
+                    @endif
+
                     <label>
                         {{--<input type="checkbox" value="">--}}
                         <input class="subjectId" type="checkbox" value="{{ $subject->id }}" name="Subject">
                         {{ $id_++ }}.{{$subject->topic_content }}
                     </label>
+
                     <form action="{{ url('teacher/quesbankmanager/subject/'.$subject->id) }}" method="POST" style="display: inline;">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
@@ -79,6 +78,7 @@
 
             </div>
         @endforeach
+            <hr>
             <div class="form">
                 <select id="paper_flag" class="select">
                     <option value="1">试卷A</option>

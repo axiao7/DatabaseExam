@@ -54,64 +54,79 @@
         </div>
     </div>
 
-
     <div>
-            @foreach($choices as $choice)
-                <div>
-                    <div class="checkbox">
-                        <label>
-                            <input class="choiceId" type="checkbox" value="{{ $choice->id }}" name="Choice">
-                            {{ $id_++ }}.{{$choice->topic_content }}
-                        </label>
+        <hr>
+        <div style="position: relative; left: 33%;">
+            <b>难度系数</b>：
+            高<img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}">
+             | 中<img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}">
+             | 低<img src="{{ asset('static/star.png') }}">
+        </div>
+        @foreach($choices as $choice)
+            <div>
+                <div class="checkbox">
+                    @if($choice->difficulty=='高')
+                        <img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}">
+                    @elseif($choice->difficulty=='中')
+                        <img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}"><span style="width: 16px"></span>
+                    @elseif($choice->difficulty=='低')
+                        <img src="{{ asset('static/star.png') }}"><span style="width: 32px"></span>
+                    @endif
 
-                        <form action="{{ url('teacher/quesbankmanager/choice/'.$choice->id) }}" method="POST" style="display: inline;">
-                            {{ method_field('DELETE') }}
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-sm btn-danger">删除</button>
-                        </form>
-                    </div>
+                    <label>
+                        <input class="choiceId" type="checkbox" value="{{ $choice->id }}" name="Choice">
+                        {{ $id_++ }}.{{$choice->topic_content }}
+                    </label>
 
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            A{{$choice->option_A}}
-                            @if($choice->right_answer == 'A')
-                                <span style="color: lightsalmon">[正解]</span>
-                            @endif
-                        </li>
-
-                        <li class="list-group-item">
-                            B{{$choice->option_B}}
-                            @if($choice->right_answer == 'B')
-                                <span style="color: lightsalmon">[正解]</span>
-                            @endif
-                        </li>
-
-
-                        <li class="list-group-item">
-                            C{{$choice->option_C}}
-                            @if($choice->right_answer == 'C')
-                                <span style="color: lightsalmon">[正解]</span>
-                            @endif
-                        </li>
-
-                        <li class="list-group-item">
-                            D{{$choice->option_D}}
-                            @if($choice->right_answer == 'D')
-                                <span style="color: lightsalmon">[正解]</span>
-                            @endif
-                        </li>
-
-                    </ul>
-                </div>
-            @endforeach
-                <div class="form">
-                    <select id="paper_flag" class="select">
-                        <option value="1">试卷A</option>
-                        <option value="2">试卷B</option>
-                    </select>
+                    <form action="{{ url('teacher/quesbankmanager/choice/'.$choice->id) }}" method="POST" style="display: inline;">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-sm btn-danger">删除</button>
+                    </form>
                 </div>
 
-                <button id="submit_choice" type="button" class="btn btn-primary">组卷</button>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        A{{$choice->option_A}}
+                        @if($choice->right_answer == 'A')
+                            <span style="color: lightsalmon">[正解]</span>
+                        @endif
+                    </li>
+
+                    <li class="list-group-item">
+                        B{{$choice->option_B}}
+                        @if($choice->right_answer == 'B')
+                            <span style="color: lightsalmon">[正解]</span>
+                        @endif
+                    </li>
+
+
+                    <li class="list-group-item">
+                        C{{$choice->option_C}}
+                        @if($choice->right_answer == 'C')
+                            <span style="color: lightsalmon">[正解]</span>
+                        @endif
+                    </li>
+
+                    <li class="list-group-item">
+                        D{{$choice->option_D}}
+                        @if($choice->right_answer == 'D')
+                            <span style="color: lightsalmon">[正解]</span>
+                        @endif
+                    </li>
+
+                </ul>
+            </div>
+        @endforeach
+        <hr>
+        <div class="form">
+            <select id="paper_flag" class="select">
+                <option value="1">试卷A</option>
+                <option value="2">试卷B</option>
+            </select>
+        </div>
+
+        <button id="submit_choice" type="button" class="btn btn-primary">组卷</button>
 
     </div>
     <script>

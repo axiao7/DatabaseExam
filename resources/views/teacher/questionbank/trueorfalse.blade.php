@@ -55,10 +55,25 @@
     </div>
 
     <div>
-        @foreach($torfs as $torf)
-            <div >
+        <hr>
+        <div style="position: relative; left: 33%;">
+            <b>难度系数</b>：
+            高<img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}">
+            | 中<img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}">
+            | 低<img src="{{ asset('static/star.png') }}">
+        </div>
 
+        @foreach($torfs as $torf)
+            <div>
                 <div class="checkbox">
+                    @if($torf->difficulty=='高')
+                        <img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}">
+                    @elseif($torf->difficulty=='中')
+                        <img src="{{ asset('static/star.png') }}"><img src="{{ asset('static/star.png') }}"><span style="width: 16px"></span>
+                    @elseif($torf->difficulty=='低')
+                        <img src="{{ asset('static/star.png') }}"><span style="width: 32px"></span>
+                    @endif
+
                     <label>
                         {{--<input type="checkbox" value="">--}}
                         <input class="torfId" type="checkbox" value="{{ $torf->id }}" name="Torf">
@@ -89,6 +104,7 @@
 
             </div>
         @endforeach
+            <hr>
             <div class="form">
                 <select id="paper_flag" class="select">
                     <option value="1">试卷A</option>

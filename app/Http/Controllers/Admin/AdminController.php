@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use App\AnswerPaper;
 use App\Choice;
 use App\Http\Controllers\Controller;
 use App\Student;
@@ -126,7 +127,8 @@ class AdminController extends Controller
                         $student->name = $rows[2];
                         $student->class = $rows[3];
 
-                        if (!$student->save()) {
+                        $paper = new AnswerPaper();
+                        if (!$student->save()||!$paper->save()) {
                             return redirect()->back()->with('error', '添加失败!');
                         }
 

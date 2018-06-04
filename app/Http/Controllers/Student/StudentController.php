@@ -285,7 +285,7 @@ class StudentController extends Controller
             return response()->json(array('msg' => 'success'), 200);
         }
         else
-            return view('student.test');
+            return view('student.login');
 
 
         //dd($stuid);

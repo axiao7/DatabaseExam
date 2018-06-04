@@ -65,7 +65,7 @@ Route::group(['prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => [
     Route::any('read/read_result', ['uses' => 'TeacherController@read_subject_result']);
 
     // 成绩分析
-    Route::get('scoreanalysis', ['uses' => 'TeacherController@']);
+    Route::any('scoreanalysis', ['uses' => 'TeacherController@scorehome']);
 //
 //    Route::any('login', ['uses' => 'TeacherController@login']);
 //

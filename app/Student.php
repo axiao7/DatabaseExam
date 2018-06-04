@@ -11,11 +11,11 @@ class Student extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['student_id', 'password'];
+    protected $fillable = ['student_id', 'password', 'name', 'class'];
 
-    public function answerpaper()
-    {
-        return $this->hasOne('App/AnswerPaper');
-    }
+//    public function answerpaper()
+//    {
+//        return $this->hasOne('App/AnswerPaper');
+//    }
 
 }

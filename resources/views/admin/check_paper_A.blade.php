@@ -28,7 +28,7 @@
 
 
 <div class="container">
-    <div class="row" style="margin-top: 50px">
+    <div style="margin-top: 10px">
 
         <!-- 左侧菜单区域   -->
         <div class="col-md-3">
@@ -88,7 +88,7 @@
             success:function(data){
 
                 if(data['msg']=='success'){
-                    alert('提交审核成功');
+                    alert('审核成功');
                 }
             }
         });

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row" style="margin-top: 50px">
+        <div style="margin-top: 10px">
 
             <!-- 左侧菜单区域   -->
             <div class="col-md-3">

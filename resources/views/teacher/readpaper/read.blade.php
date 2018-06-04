@@ -37,8 +37,10 @@
         $('#submit_read_result').click(function () {
             var read_result = [];
             var paper = $("input[name='paperid']").val();
-            @for($id=0;$id<5;$id++)
-                read_result[{{ $id }}] = $("input[name='subject_result[{{ $id }}]']").val();
+            var i = 0;
+            @for($id=1;$id<=5;$id++)
+                read_result[i] = $("input[name='subject_result[{{ $id }}]']").val();
+                i++;
             @endfor
 
             submit_result(read_result,paper);

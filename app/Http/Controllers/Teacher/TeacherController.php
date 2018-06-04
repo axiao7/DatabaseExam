@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -441,7 +442,7 @@ class TeacherController extends Controller
 
     public function readhome()
     {
-        $students = Student::paginate(5);
+        $students = Student::paginate(10);
 
         return view('teacher.readpaper.home',[
             'students' => $students,
@@ -484,7 +485,7 @@ class TeacherController extends Controller
         $subjects[3] = $stu_answer->subject_4;
         $subjects[4] = $stu_answer->subject_5;
 
-        $topic_id = 0;
+        $topic_id = 1;
 
         return view('teacher.readpaper.read',[
             'subjects' => $subjects,
@@ -521,4 +522,43 @@ class TeacherController extends Controller
             return view('teacher.readpaper.read');
     }
 //
+    public function scorehome(Request $request)
+    {
+//        $score_1 = DB::select('select score_1 from answerpaper');
+//        $score_2 = DB::select('select score_2 from answerpaper');
+
+        $total_score = DB::select('select total_score from answerpaper');
+        //dd($total_score[0]->total_score);
+
+        $count_total = [0,0,0,0,0,0,0,0,0,0];
+        for ($i=0;$i<count($total_score);$i++) {
+            if ($total_score[$i]->total_score>=0 && $total_score[$i]->total_score<10) {
+                $count_total[0]++;
+            } elseif ($total_score[$i]->total_score>=10 && $total_score[$i]->total_score<20) {
+                $count_total[1]++;
+            } elseif ($total_score[$i]->total_score>=20 && $total_score[$i]->total_score<30) {
+                $count_total[2]++;
+            } elseif ($total_score[$i]->total_score>=30 && $total_score[$i]->total_score<40) {
+                $count_total[3]++;
+            } elseif ($total_score[$i]->total_score>=40 && $total_score[$i]->total_score<50) {
+                $count_total[4]++;
+            } elseif ($total_score[$i]->total_score>=50 && $total_score[$i]->total_score<60) {
+                $count_total[5]++;
+            } elseif ($total_score[$i]->total_score>=60 && $total_score[$i]->total_score<70) {
+                $count_total[6]++;
+            } elseif ($total_score[$i]->total_score>=70 && $total_score[$i]->total_score<80) {
+                $count_total[7]++;
+            } elseif ($total_score[$i]->total_score>=80 && $total_score[$i]->total_score<90) {
+                $count_total[8]++;
+            } else {
+                $count_total[9]++;
+            }
+        }
+        //return response()->json(array('msg'=>'success','total_score_count'=>$count_total), 200);
+        //dd($count_total);
+        return view('teacher.scoreanalysis.home',[
+            'total_score_count' => $count_total,
+            'i' => 0,
+        ]);
+    }
 }
